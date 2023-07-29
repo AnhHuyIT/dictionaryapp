@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.dcacd219.css",
-    "main.js": "/static/js/main.7d75a62f.js",
-    "static/js/787.0157ba9a.chunk.js": "/static/js/787.0157ba9a.chunk.js",
-    "index.html": "/index.html",
-    "main.dcacd219.css.map": "/static/css/main.dcacd219.css.map",
-    "main.7d75a62f.js.map": "/static/js/main.7d75a62f.js.map",
-    "787.0157ba9a.chunk.js.map": "/static/js/787.0157ba9a.chunk.js.map"
+    "main.css": "/dictionaryapp/static/css/main.dcacd219.css",
+    "main.js": "/dictionaryapp/static/js/main.1d74e352.js",
+    "static/js/787.0157ba9a.chunk.js": "/dictionaryapp/static/js/787.0157ba9a.chunk.js",
+    "index.html": "/dictionaryapp/index.html",
+    "main.dcacd219.css.map": "/dictionaryapp/static/css/main.dcacd219.css.map",
+    "main.1d74e352.js.map": "/dictionaryapp/static/js/main.1d74e352.js.map",
+    "787.0157ba9a.chunk.js.map": "/dictionaryapp/static/js/787.0157ba9a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.dcacd219.css",
-    "static/js/main.7d75a62f.js"
+    "static/js/main.1d74e352.js"
   ]
 }

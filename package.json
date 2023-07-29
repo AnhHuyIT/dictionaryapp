@@ -2,7 +2,7 @@
   "name": "dictionary",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://anhhuyit.github.io/",
+  "homepage": "https://anhhuyit.github.io/dictionaryapp/",
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
     "@testing-library/jest-dom": "^5.16.5",

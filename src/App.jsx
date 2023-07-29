@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Link, Routes  } from "react-router-dom";
 import TraCuu from './pages/TraCuu'
-import TuLoai from './pages/TuLoai'
+import Cadao from './pages/Cadao';
 
 import { Layout, Menu } from 'antd';
-import { UploadOutlined, SearchOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { FolderOpenOutlined, SearchOutlined, VideoCameraOutlined } from '@ant-design/icons';
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -56,9 +56,9 @@ class App extends Component {
                                 <span>Tra cứu</span>
                                 <Link to="/" />
                             </Menu.Item>
-                            <Menu.Item key="2" icon={<UploadOutlined />}>
-                                <span>Từ loại</span>
-                                <Link to="/tuloai" />
+                            <Menu.Item key="2" icon={<FolderOpenOutlined />}>
+                                <span>Ca dao/ Tục ngữ</span>
+                                <Link to="/cadao" />
                             </Menu.Item>
                         </Menu>
                     </Sider>
@@ -68,7 +68,7 @@ class App extends Component {
                             <div>
                                 <Routes>
                                     <Route exact path="/" element={<TraCuu />} />
-                                    <Route path="/tuloai" element={<TuLoai />} />
+                                    <Route path="/cadao" element={<Cadao />} />
                                 </Routes>
                             </div>
                         </Content>

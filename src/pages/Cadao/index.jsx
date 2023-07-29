@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, Input, Table, Modal, Image, Space, Select } from 'antd'
 import { EyeOutlined, FileSearchOutlined, SoundOutlined, StarTwoTone } from '@ant-design/icons';
 import { useSpeechSynthesis } from 'react-speech-kit';
-import {dataTu} from '../../data/tu'
+import {dataCadao} from '../../data/cadao'
 
 const { Search } = Input;
 const layout = {
@@ -16,19 +16,15 @@ const layout = {
   },
 };
 
-// const tailLayout = {
-//   wrapperCol: { offset: 8, span: 16 },
-// };
 
-export default function TraCuu() {
+export default function Cadao() {
   const [form] = Form.useForm();
 
-  const data = dataTu;
+  const data = dataCadao;
 
   const [dataSource, setDataSource] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState({});
-
   const { speak } = useSpeechSynthesis();
 
   const speechHandler = (text) => {
@@ -58,16 +54,21 @@ export default function TraCuu() {
 
   const columns = [
     {
-      title: "Từ",
-      dataIndex: "tu",
-      key: "tu",
-      render: text => <a>{text}</a>
+      title: "Ca Dao",
+      dataIndex: "cadao",
+      key: "cadao",
+      render: text => {
+        const arr = text.split("\n");
+        return (
+          <>
+            {arr.map((item, index) => {
+              return <div>{item}</div>;
+            })}
+          </>
+        );
+      }
     },
     {
-      title: "Nghĩa",
-      dataIndex: "nghia",
-      key: "nghia"
-    }, {
       title: 'Chi tiết',
       dataIndex: "",
       key: "",
@@ -83,58 +84,33 @@ export default function TraCuu() {
 
   const onFinish = (values) => {
     const filter = data.filter((tu) => {
-      let checkTu = false;
-      let checkTuloai = false;
-      let checkCautaotu = false;
+      let checkCadao = false;
+      let checkLoai = false;
 
-      let getTuLoai = '';
-      switch (values?.tuloai) {
+      let getLoai = '';
+      switch (values?.loai) {
         case '1':
-          getTuLoai = 'Danh từ';
+          getLoai = 'Ca dao';
           break;
         case '2':
-          getTuLoai = 'Động từ';
-          break;
-        case '3':
-          getTuLoai = 'Tính từ';
+          getLoai = 'Tục ngữ';
           break;
         default:
-          checkTuloai = true;
+          checkLoai = true;
           break;
       }
-
-      let getCauTaoTu = '';
-      switch (values?.cautaotu) {
-        case '1':
-          getCauTaoTu = 'Từ đơn';
-          break;
-        case '2':
-          getCauTaoTu = 'Từ ghép';
-          break;
-        case '3':
-          getCauTaoTu = 'Từ láy';
-          break;
-        default:
-          checkCautaotu = true;
-          break;
-      }
-
-      if (values?.tu === undefined || values?.tu === null || values?.tu === '') {
-        checkTu = true;
+      if (values?.cadao === undefined || values?.cadao === null || values?.cadao === '') {
+        checkCadao = true;
       } else {
-        if (tu.tu.includes(values?.tu)) {
-          checkTu = true;
+        if (tu.cadao.includes(values?.cadao)) {
+          checkCadao = true;
         }
       }
-
-      if (getTuLoai === tu.tuloai) {
-        checkTuloai = true;
-      }
-      if (getCauTaoTu === tu.cautaotu) {
-        checkCautaotu = true;
+      if (getLoai === tu.loai) {
+        checkLoai = true;
       }
 
-      if (checkTu && checkTuloai && checkCautaotu) {
+      if (checkCadao && checkLoai) {
         return true;
       } else {
         return false;
@@ -147,10 +123,25 @@ export default function TraCuu() {
     form.resetFields();
   };
 
+
+  // let detail = <></>;
+  // if (!isNaN(selectedRow?.cadao) && selectedRow?.cadao !== undefined)
+  // {
+  //   const arr = selectedRow?.cadao.split("\n");
+  //   detail = (
+  //     <>
+  //       {arr.map((item, index) => {
+  //         return <div>{item}</div>
+  //       })};
+  //     </>
+  //   );
+  // }
+  
+
   return (
     <>
       <div>
-        <h1><FileSearchOutlined />Tra Cứu Tiếng Việt </h1>
+        <h1><FileSearchOutlined />Ca dao/ Tục ngữ</h1>
       </div>
       <div>
         <Form
@@ -160,21 +151,13 @@ export default function TraCuu() {
           onFinish={onFinish}
         // style={{ maxWidth: 600 }}
         >
-          <Form.Item name="tu" label="Từ">
+          <Form.Item name="cadao" label="Từ">
             <Input />
           </Form.Item>
-          <Form.Item name="tuloai" label="Từ loại">
+          <Form.Item name="loai" label="Loại">
             <Select>
-              <Select.Option value="1">Danh từ</Select.Option>
-              <Select.Option value="2">Động Từ</Select.Option>
-              <Select.Option value="3">Tính từ</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item name="cautaotu" label="Cấu tạo từ">
-            <Select>
-              <Select.Option value="1">Từ đơn</Select.Option>
-              <Select.Option value="2">Từ ghép</Select.Option>
-              <Select.Option value="3">Từ láy</Select.Option>
+              <Select.Option value="1">Ca dao</Select.Option>
+              <Select.Option value="2">Tục ngữ</Select.Option>
             </Select>
           </Form.Item>
           <Form.Item
@@ -198,26 +181,16 @@ export default function TraCuu() {
       <Modal title="Tra cứu" open={isModalOpen} onOk={handleOk} cancelButtonProps={{ style: { display: 'none' } }}>
         <Space direction="vertical">
           <Space wrap>
-            <p><StarTwoTone twoToneColor="#eb2f96" /> {selectedRow?.tu}</p>
-            <Button type='default' shape='circle' onClick={() => speechHandler(selectedRow?.tu)} icon={<SoundOutlined />} />
+            <p><StarTwoTone twoToneColor="#eb2f96" /> {selectedRow?.cadao}</p>
+            <Button type='default' shape='circle' onClick={() => speechHandler(selectedRow?.cadao)} icon={<SoundOutlined />} />
           </Space>
           <Space wrap>
             <Button type="primary" shape="round" size='small'>
-              {selectedRow?.tuloai}
-            </Button>
-            <Button type="dashed" shape="round" size='small'>
-              {selectedRow?.cautaotu}
+              {selectedRow?.loai}
             </Button>
           </Space>
           <Space wrap>
           </Space>
-          <Space wrap>
-            <p>{selectedRow?.nghia}</p>
-          </Space>
-          <Image
-            width={300}
-            src={process.env.PUBLIC_URL + '/img/' + selectedRow?.img}
-          />
         </Space>
       </Modal>
     </>
